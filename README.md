@@ -42,14 +42,24 @@ Ensure your servers have the necessary firewall and/or ACL rules permitted.
 
 Downloading and executing the script can be done by cutting and pasting the following commands as the root user on the host you wish to install, using the filename associated with the chosen operating system (Ubuntu or Rocky):
 
+### For Ubuntu (22.04 or 20.04)
 ```
 curl -O -s https://raw.githubusercontent.com/SamKnows/On-net-installer/master/test_server_installer_ubuntu.sh
-chmod +x test_server_install.sh
-./test_server_install.sh
+chmod +x test_server_installer_ubuntu.sh
+./test_server_installer_ubuntu.sh
 ```
 
-Use `test_server_installer_ubuntu.sh` for Ubuntu 22.04 or 20.04. Use `test_server_installer_rocky_9.sh` for Rocky Linux 9.
+### For Rocky Linux 9
+```
+curl -O -s https://raw.githubusercontent.com/SamKnows/On-net-installer/master/test_server_installer_rocky_9.sh
+chmod +x test_server_installer_rocky_9.sh
+./test_server_installer_rocky_9.sh
+```
 
+
+Tracing the Installation Script Step-by-Step:
+
+```
 ## Usage
 
 The test_server_install.sh script needs to be run by the root user to work. On execution of the script you will be presented with three options.
