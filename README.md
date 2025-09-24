@@ -29,6 +29,8 @@ For larger deployments, 100Gbps test servers are preferred. The recommended mini
 
 At a minimum, one publicly routable IPv4 address must be provisioned per server. The test server must not be presented with a NAT'd address. It is preferable for any new test servers to also be provisioned with an IPv6 address at installation time. DNS records must be configured for each server before installation of SamKnows applications can proceed. We recommend using separate DNS records for IPv4 and IPv6, for example v4-servername.company.com and v6-servername.company.com to make it clear which protocol is being used at any time.
 
+We now allow installation on Ubuntu 24.04, however this is with the caveat that this has not been extensively tested for performance. At present, we cannot guarantee performance in parity with Ubuntu 22.04, and support would be provided on a best efforts basis until we do formally support 24.04.
+
 # Server Management
 ## Provisioning on-net test servers
 
