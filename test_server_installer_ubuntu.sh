@@ -20,7 +20,8 @@ unsupported_error() {
 
 # Am I running on Ubuntu 22.04 or 20.04?
 OS_NAME=$(lsb_release -i | awk '{ print $NF}')
-UBUNTU_VERSION=$(lsb_release -s -c)
+UBUNTU_VERSION=$(lsb_release -s -c 2>/dev/null)
+BETA="0"
 
 if [ "$OS_NAME" != "Ubuntu" ]; then
   unsupported_error
@@ -29,6 +30,10 @@ elif [ "$UBUNTU_VERSION" == "focal" ]; then
 elif [ "$UBUNTU_VERSION" == "jammy" ]; then
   UBUNTU_VERSION="stable"
   OEM="linux-oem-22.04b"
+elif [ "$UBUNTU_VERSION" == "noble" ]; then
+  UBUNTU_VERSION="stable"
+  OEM="linux-oem-24.04b"
+  BETA="1"
 else 
   unsupported_error
 fi
@@ -83,6 +88,11 @@ server {
 HUND_SYSCTL_FILENAME='/etc/sysctl.d/21-network_tuning_100gbps.conf'
 
 main () {
+
+if [ "$BETA" == "1" ]; then
+  echo "Ubuntu 24.04 detected - this is not officially supported, however the installation should work correctly still and everything should function."
+  echo -e "We do not currently guarantee performance in parity with Ubuntu 22.04 and support will be provided on a best effort basis until we formally support 24.04.\n"
+fi
 
 check_hostname_resolves
 
