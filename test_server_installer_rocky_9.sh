@@ -189,7 +189,7 @@ fi
 if $MANUAL_INSTALL
   then echo "SamKnows recommends the following linux kernel settings:"
   echo
-  curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/sysctl.d/20-network_tuning.conf
+  curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/sysctl.d/20-network_tuning.conf
   echo
   echo "Would you like to save these settings to $SYSCTL_FILE and apply them so they are loaded on reboot?"
   select yn in "Yes" "No"; do
@@ -422,7 +422,7 @@ install_samknows_nginx () {
 install_samknows_sysconfig () {
   if [[ ! -f $SYSCTL_FILE ]]
     then
-    curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/sysctl.d/20-network_tuning.conf > $SYSCTL_FILE ;
+    curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/sysctl.d/20-network_tuning.conf > $SYSCTL_FILE ;
     sysctl -q -p $SYSCTL_FILE
   else
     echo "File $SYSCTL_FILE exists already, skipping."
@@ -432,7 +432,7 @@ install_samknows_sysconfig () {
 
 install_samknows_fairqueuing () {
   if [[ ! -f "$FQ_FILE" ]]
-    then curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue > "$FQ_FILE"
+    then curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue > "$FQ_FILE"
     chmod +x "$FQ_FILE"
     eval "$FQ_FILE"
   else
@@ -456,7 +456,7 @@ apply_100g_tweaks () {
   TC_FILENAME="samknows-interfacequeue-100g"
   TC_FILE="/etc/NetworkManager/dispatcher.d/pre-up.d/50-add_fair_queuing.sh"
   if [[ ! -f "$TC_FILE" ]]
-    then curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue-100g > "$TC_FILE"
+    then curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue-100g > "$TC_FILE"
     chmod +x "$TC_FILE"
     eval "$TC_FILE"
     echo "Fair Queuing settings saved to $TC_FILE"
@@ -479,7 +479,7 @@ apply_100g_tweaks () {
   if [[ ! -f $HUND_SYSCTL_FILENAME ]]
     then touch $HUND_SYSCTL_FILENAME
   fi
-  curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/sysctl.d/21-network_tuning_100gbps.conf > $HUND_SYSCTL_FILENAME
+  curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/sysctl.d/21-network_tuning_100gbps.conf > $HUND_SYSCTL_FILENAME
   echo "TCP tuning settings saved to $HUND_SYSCTL_FILENAME"
   sysctl -q -p
 }
