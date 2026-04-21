@@ -425,7 +425,7 @@ install_samknows_nginx () {
 install_samknows_sysconfig () {
   if [[ ! -f $SYSCTL_FILE ]]
     then
-    curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/sysctl.d/20-network_tuning.conf > "$SYSCTL_FILE" ; 
+    curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/sysctl.d/20-network_tuning.conf > "$SYSCTL_FILE" ; 
     sysctl -q -p 
     service procps force-reload 
   else 
@@ -437,7 +437,7 @@ apply_100g_tweaks () {
   TC_FILENAME="samknows-interfacequeue-100g"
   TC_FILE="/etc/init.d/$TC_FILENAME"
   if [[ ! -f "$TC_FILE" ]]
-    then curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue-100g > "$TC_FILE"
+    then curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue-100g > "$TC_FILE"
     chmod +x "$TC_FILE"
     update-rc.d "$TC_FILENAME" defaults
     eval "$TC_FILE"
@@ -461,7 +461,7 @@ apply_100g_tweaks () {
   if [[ ! -f $HUND_SYSCTL_FILENAME ]]
     then touch $HUND_SYSCTL_FILENAME
   fi
-  curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/sysctl.d/21-network_tuning_100gbps.conf > $HUND_SYSCTL_FILENAME
+  curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/sysctl.d/21-network_tuning_100gbps.conf > $HUND_SYSCTL_FILENAME
   echo "TCP tuning settings saved to $HUND_SYSCTL_FILENAME"
   sysctl -q -p
 }
@@ -470,7 +470,7 @@ install_samknows_fairqueuing () {
   TC_FILENAME="samknows-interfacequeue"
   TC_FILE="/etc/init.d/$TC_FILENAME"
   if [[ ! -f "$TC_FILE" ]]
-    then curl https://raw.githubusercontent.com/SamKnows/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue > "$TC_FILE"
+    then curl https://raw.githubusercontent.com/thousandeyes/On-net-installer/refs/heads/master/files/etc/init.d/samknows-interfacequeue > "$TC_FILE"
     chmod +x "$TC_FILE"
     update-rc.d "$TC_FILENAME" defaults
     eval "$TC_FILE"

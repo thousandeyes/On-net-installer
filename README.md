@@ -46,14 +46,14 @@ Downloading and executing the script can be done by cutting and pasting the foll
 
 ### For Ubuntu (22.04 or 20.04)
 ```
-curl -O -s https://raw.githubusercontent.com/SamKnows/On-net-installer/master/test_server_installer_ubuntu.sh
+curl -O -s https://raw.githubusercontent.com/thousandeyes/On-net-installer/master/test_server_installer_ubuntu.sh
 chmod +x test_server_installer_ubuntu.sh
 ./test_server_installer_ubuntu.sh
 ```
 
 ### For Rocky Linux 9
 ```
-curl -O -s https://raw.githubusercontent.com/SamKnows/On-net-installer/master/test_server_installer_rocky_9.sh
+curl -O -s https://raw.githubusercontent.com/thousandeyes/On-net-installer/master/test_server_installer_rocky_9.sh
 chmod +x test_server_installer_rocky_9.sh
 ./test_server_installer_rocky_9.sh
 ```
