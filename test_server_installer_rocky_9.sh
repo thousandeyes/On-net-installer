@@ -58,6 +58,7 @@ NGINX_CONTENTS='map $http_upgrade $connection_upgrade {
 }
 
 add_header Access-Control-Allow-Origin "*";
+# Samknows SSL configuration add_header Strict-Transport-Security "max-age=15552000; includeSubdomains; ";
 
 server {
         listen 80 default_server;
@@ -143,9 +144,9 @@ if $MANUAL_INSTALL
     echo yum install $PACKAGES_SUGGEST
     echo
     echo "This will also install the latest available mainline kernel from EL Repo"
-    echo 
+    echo
     echo "dnf --enablerepo=elrepo-kernel install kernel-ml && grubby --default-kernel"
-    echo 
+    echo
     echo "Would you like these packages installed now?"
     select yn in "Yes" "No"; do
       case $yn in
@@ -485,17 +486,18 @@ apply_100g_tweaks () {
 }
 
 install_samknows_certbot () {
-  certbot --agree-tos -n --nginx -d $FQDN_HOSTNAME -m $CERTBOT_EMAIL > /dev/null 2>&1
+  certbot --agree-tos --hsts -n --nginx -d $FQDN_HOSTNAME -m $CERTBOT_EMAIL > /dev/null 2>&1
   if [[ $? -ne 0 ]]
     then
     echo "Error: certbot exited with an error when running:"
-    echo "certbot --agree-tos -n --nginx --no-redirect -d $FQDN_HOSTNAME -m $CERTBOT_EMAIL"
+    echo "certbot --agree-tos --hsts -n --nginx --no-redirect -d $FQDN_HOSTNAME -m $CERTBOT_EMAIL"
     echo "Please run certbot to manually generate a SSL certificate."
     exit 1;
   fi
-  sed -i '36,39s/# Samknows SSL configuration listen/        listen/g' $NGINX_FILENAME
+  sed -i '30,30s/# Samknows SSL configuration listen/        listen/g' $NGINX_FILENAME
+  sed -i '37,40s/# Samknows SSL configuration add_header/        add_header/g' $NGINX_FILENAME
   sed -i '/^#/d' $NGINX_FILENAME
-  sed -i '63,$ d' $NGINX_FILENAME
+  sed -i '64,$ d' $NGINX_FILENAME
   awk -v n=3 '/^server/{n--}; n > 0' $NGINX_FILENAME > $NGINX_FILENAME.new && mv $NGINX_FILENAME.new $NGINX_FILENAME
 }
 
