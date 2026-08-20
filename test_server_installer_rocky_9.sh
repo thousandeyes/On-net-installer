@@ -69,6 +69,7 @@ server {
 # Samknows SSL configuration listen 6800 ssl default_server;
 # Samknows SSL configuration listen [::]:6800 ssl default_server;
         root /usr/share/nginx/html/web_test;
+        client_max_body_size 33g;
 
         location /ws/0.05 {
                 proxy_pass http://localhost:6501;
@@ -79,7 +80,20 @@ server {
 
         location / {
                 if ($request_method = POST) {
+                        add_header "Access-Control-Allow-Headers" "Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With";
+                        add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS";
+                        add_header "Access-Control-Allow-Origin" "*" always;
+
+                        # deliberately using something that does not exist, nginx will consume anyway
                         fastcgi_pass 127.0.0.1:9494;
+
+                        return 200;
+                }
+                if ($request_method = OPTIONS) {
+                        add_header "Access-Control-Allow-Headers" "Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With";
+                        add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS";
+                        add_header "Access-Control-Allow-Origin" "*" always;
+
                         return 200;
                 }
         }
@@ -493,9 +507,13 @@ install_samknows_certbot () {
     echo "Please run certbot to manually generate a SSL certificate."
     exit 1;
   fi
-  sed -i '36,39s/# Samknows SSL configuration listen/        listen/g' $NGINX_FILENAME
+  # Line ranges below track the size of $NGINX_CONTENTS: the first range targets the
+  # SSL listen comments inside the server block certbot duplicates, the second
+  # truncates anything certbot appended after that block. Adjust both if the
+  # template changes length.
+  sed -i '50,53s/# Samknows SSL configuration listen/        listen/g' $NGINX_FILENAME
   sed -i '/^#/d' $NGINX_FILENAME
-  sed -i '63,$ d' $NGINX_FILENAME
+  sed -i '91,$ d' $NGINX_FILENAME
   awk -v n=3 '/^server/{n--}; n > 0' $NGINX_FILENAME > $NGINX_FILENAME.new && mv $NGINX_FILENAME.new $NGINX_FILENAME
 }
 
