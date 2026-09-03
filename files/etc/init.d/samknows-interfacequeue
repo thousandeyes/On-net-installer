@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# Copyright 2026 Cisco Systems, Inc. and its affiliates
+#
+# SPDX-License-Identifier: MIT
 ### BEGIN INIT INFO
 # Provides:       queuing
 # Required-Start:    $syslog 
