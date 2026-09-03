@@ -61,14 +61,15 @@ chmod +x test_server_installer_rocky_9.sh
 
 Tracing the Installation Script Step-by-Step:
 
-```
+
 ## Usage
 
 The test_server_install.sh script needs to be run by the root user to work. On execution of the script you will be presented with three options.
-
+```
 1) Install
 2) Verbose Install
 3) Exit
+```
 
 It is recommended you select “1) Install”, which will then automatically make a number of changes to allow the On Net Server software to install.
 
@@ -125,3 +126,7 @@ Please avoid disabling any of the following essential processes or systemd units
 * skudpspeed_server
 * skwebsocket_speed_server
 * dart
+
+# License
+
+Distributed under the MIT License. See LICENSE for more information.
